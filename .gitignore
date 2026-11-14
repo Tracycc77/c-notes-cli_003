@@ -53,3 +53,12 @@ dkms.conf
 
 # debug information files
 *.dwo
+# Build output and local runtime data
+notes-cli
+notes-cli.exe
+data/
+*.txt
+!examples/sample-note.txt
+entry__
+# Visual Studio local state
+.vs/

@@ -10,6 +10,7 @@ static void usage(void)
     printf("  notes-cli add <title> <tag> <body>   add a note\n");
     printf("  notes-cli list                       list all notes\n");
     printf("  notes-cli search <keyword>           search by keyword\n");
+    printf("  notes-cli search --tag <tag>         list notes of one tag\n");
     printf("  notes-cli export <file>              export notes to a txt file\n");
     printf("  notes-cli help                       show this help\n");
 }
@@ -48,8 +49,12 @@ int main(int argc, char **argv)
     }
 
     if (strcmp(argv[1], "search") == 0) {
+        if (argc >= 4 && strcmp(argv[2], "--tag") == 0) {
+            note_search_tag(notes, count, argv[3]);
+            return 0;
+        }
         if (argc < 3) {
-            fprintf(stderr, "error: search needs a keyword\n");
+            fprintf(stderr, "error: search needs a keyword or --tag <tag>\n");
             return 1;
         }
         note_search(notes, count, argv[2]);
@@ -60,6 +65,10 @@ int main(int argc, char **argv)
         if (argc < 3) {
             fprintf(stderr, "error: export needs a file path\n");
             return 1;
+        }
+        /* 以 .md 结尾时导出 Markdown，否则导出纯文本 */
+        if (strlen(argv[2]) > 3 && strcmp(argv[2] + strlen(argv[2]) - 3, ".md") == 0) {
+            return note_export_md(notes, count, argv[2]) < 0 ? 1 : 0;
         }
         return note_export_txt(notes, count, argv[2]) < 0 ? 1 : 0;
     }

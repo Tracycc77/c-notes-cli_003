@@ -131,6 +131,46 @@ int note_search(const Note *notes, int count, const char *keyword)
     return hits;
 }
 
+int note_search_tag(const Note *notes, int count, const char *tag)
+{
+    int i, hits = 0;
+
+    for (i = 0; i < count; i++) {
+        if (strcmp(notes[i].tag, tag) == 0) {
+            printf("%-4d %-17s %-12s %s\n",
+                   notes[i].id, notes[i].created, notes[i].tag, notes[i].title);
+            printf("     %s\n", notes[i].body);
+            hits++;
+        }
+    }
+    printf("%d note(s) tagged \"%s\"\n", hits, tag);
+    return hits;
+}
+
+int note_export_md(const Note *notes, int count, const char *path)
+{
+    FILE *fp;
+    int i;
+
+    fp = fopen(path, "w");
+    if (fp == NULL) {
+        fprintf(stderr, "error: cannot open %s for writing\n", path);
+        return -1;
+    }
+    fprintf(fp, "# Notes export\n\n");
+    fprintf(fp, "共 %d 条笔记，由 c-notes-cli 导出。\n\n", count);
+    for (i = 0; i < count; i++) {
+        fprintf(fp, "## %s\n\n", notes[i].title);
+        fprintf(fp, "- 编号：%d\n", notes[i].id);
+        fprintf(fp, "- 创建时间：%s\n", notes[i].created);
+        fprintf(fp, "- 标签：`%s`\n\n", notes[i].tag);
+        fprintf(fp, "%s\n\n", notes[i].body);
+    }
+    fclose(fp);
+    printf("exported %d note(s) to %s (markdown)\n", count, path);
+    return count;
+}
+
 int note_export_txt(const Note *notes, int count, const char *path)
 {
     FILE *fp;

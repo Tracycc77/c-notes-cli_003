@@ -13,7 +13,7 @@ gcc -std=c99 -Wall -o notes-cli main.c src/note.c
 | `notes-cli add <title> <tag> <body>` | 新增一条笔记，自动记录创建时间 |
 | `notes-cli list` | 列出全部笔记（ID、时间、标签、标题） |
 | `notes-cli search <keyword>` | 按标题或正文关键词检索，命中的记录会显示正文 |
-| `notes-cli export <file>` | 把全部笔记导出为纯文本文件 |
+| `notes-cli export <file>` | 把全部笔记导出为 Markdown（`.md`）或纯文本（其它后缀） |
 | `notes-cli help` | 查看帮助 |
 
 ## 三、使用示例
@@ -51,9 +51,12 @@ $ ./notes-cli search 事务
 ### 4. 导出
 
 ```bash
-$ ./notes-cli export notes.txt
-exported 2 note(s) to notes.txt
+$ ./notes-cli export notes.md
+exported 2 note(s) to notes.md (markdown)
 ```
+
+导出文件以 `.md` 结尾时生成 Markdown 文档，每条笔记一个二级标题，标题下依次是编号、创建时间、标签和
+正文，便于放进博客或课程总结；以其它后缀导出则为纯文本格式。
 
 ## 四、数据文件
 

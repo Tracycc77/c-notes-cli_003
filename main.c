@@ -61,6 +61,10 @@ int main(int argc, char **argv)
             fprintf(stderr, "error: export needs a file path\n");
             return 1;
         }
+        /* 以 .md 结尾时导出 Markdown，否则导出纯文本 */
+        if (strlen(argv[2]) > 3 && strcmp(argv[2] + strlen(argv[2]) - 3, ".md") == 0) {
+            return note_export_md(notes, count, argv[2]) < 0 ? 1 : 0;
+        }
         return note_export_txt(notes, count, argv[2]) < 0 ? 1 : 0;
     }
 

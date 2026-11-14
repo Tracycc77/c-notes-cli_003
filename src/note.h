@@ -36,4 +36,7 @@ int  note_search(const Note *notes, int count, const char *keyword);
 /* 导出为纯文本文件，返回成功导出的条数；失败返回 -1 */
 int  note_export_txt(const Note *notes, int count, const char *path);
 
+/* 导出为 Markdown 文档，返回成功导出的条数；失败返回 -1 */
+int  note_export_md(const Note *notes, int count, const char *path);
+
 #endif /* NOTE_H */

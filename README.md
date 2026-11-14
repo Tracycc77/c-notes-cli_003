@@ -12,7 +12,7 @@
 - 用标签给笔记分类，例如 `c`、`mysql`、`算法`
 - 按标题或正文关键词检索笔记
 - 查看全部笔记列表
-- 导出为纯文本文件
+- 导出为 Markdown 文档（`export notes.md`），也支持导出纯文本
 
 ## 运行环境
 
@@ -35,7 +35,7 @@ Windows 下生成 `notes-cli.exe`，Linux / macOS 下生成 `notes-cli`。
 ./notes-cli add "指针与数组的区别" c "数组名是常量指针，指针是变量"
 ./notes-cli list
 ./notes-cli search 指针
-./notes-cli export notes.txt
+./notes-cli export notes.md
 ```
 
 ## 目录结构

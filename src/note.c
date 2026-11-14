@@ -131,6 +131,22 @@ int note_search(const Note *notes, int count, const char *keyword)
     return hits;
 }
 
+int note_search_tag(const Note *notes, int count, const char *tag)
+{
+    int i, hits = 0;
+
+    for (i = 0; i < count; i++) {
+        if (strcmp(notes[i].tag, tag) == 0) {
+            printf("%-4d %-17s %-12s %s\n",
+                   notes[i].id, notes[i].created, notes[i].tag, notes[i].title);
+            printf("     %s\n", notes[i].body);
+            hits++;
+        }
+    }
+    printf("%d note(s) tagged \"%s\"\n", hits, tag);
+    return hits;
+}
+
 int note_export_txt(const Note *notes, int count, const char *path)
 {
     FILE *fp;

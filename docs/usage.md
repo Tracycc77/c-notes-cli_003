@@ -13,6 +13,7 @@ gcc -std=c99 -Wall -o notes-cli main.c src/note.c
 | `notes-cli add <title> <tag> <body>` | 新增一条笔记，自动记录创建时间 |
 | `notes-cli list` | 列出全部笔记（ID、时间、标签、标题） |
 | `notes-cli search <keyword>` | 按标题或正文关键词检索，命中的记录会显示正文 |
+| `notes-cli search --tag <tag>` | 只列出某个标签下的全部笔记 |
 | `notes-cli export <file>` | 把全部笔记导出为纯文本文件 |
 | `notes-cli help` | 查看帮助 |
 
@@ -48,7 +49,18 @@ $ ./notes-cli search 事务
 
 检索范围是标题和正文，区分英文大小写，中文按字符直接匹配。
 
-### 4. 导出
+### 4. 按标签浏览
+
+```bash
+$ ./notes-cli search --tag c
+1    2026-11-14 09:31  c            指针与数组的区别
+     数组名是常量指针，指针是变量
+1 note(s) tagged "c"
+```
+
+标签检索是精确匹配，用来把一个主题下的笔记集中复习。
+
+### 5. 导出
 
 ```bash
 $ ./notes-cli export notes.txt

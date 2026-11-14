@@ -33,6 +33,9 @@ void note_list(const Note *notes, int count);
 /* 按标题或正文关键词查找，返回命中条数 */
 int  note_search(const Note *notes, int count, const char *keyword);
 
+/* 按标签查找，返回命中条数 */
+int  note_search_tag(const Note *notes, int count, const char *tag);
+
 /* 导出为纯文本文件，返回成功导出的条数；失败返回 -1 */
 int  note_export_txt(const Note *notes, int count, const char *path);
 
